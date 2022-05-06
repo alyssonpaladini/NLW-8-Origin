@@ -10,10 +10,12 @@
 /* ======== ESPECIFICAÇÃO VARS, REM ETC ======== */
 :root{
     font-size: 62.5%; /* 1rem = 10px */
-
-    --primary-color:hsl(170, 100%, 26%);
-    --brand-beige:hsl(39, 100%, 97%);
-    --brand-green:hsl(148, 23%, 89%);
+    --hue:170;
+    --logo-path: hsl(var(--hue), 0%, 100%);
+    --primary-color:hsl(var(--hue), 100%, 26%);
+    --secondary-color: hsl(var(--hue), 100%, 14%);
+    --brand-beige:hsl(var(--hue), 100%, 97%);
+    --brand-green:hsl(var(--hue), 23%, 65%);
     --headline:hsl(210, 11%, 15%);
     --paragraph: hsl(210, 9%, 31%);
     --nav-height: 7.2rem;
@@ -52,7 +54,7 @@ section h4{
 }
 
 section h2{
-    font-size: 3.4rem;
+    font-size: 3rem;
     color: var(--headline);
     line-height: 130%;
 }
@@ -75,7 +77,7 @@ ul {
     list-style: none;
 }
 
-/* ======== NAV ======== */
+/* ======== NAVIGATION ======== */
 
 nav{
     display: flex;
@@ -96,14 +98,6 @@ nav.scroll {
     background: var(--primary-color);
 }
 
-nav.scroll .logo path{
-    fill: white; /* mudando cor do svg doctorcare */
-}
-
-nav.scroll button path{
-    stroke: white; /* mudando traço do svg menu */
-}
-
 nav button{
     background: none;
     border: none;
@@ -116,7 +110,7 @@ body.menu-expanded {
 }
 
 body.menu-expanded > :not(nav){
-    visibility: hidden;
+    visibility: visible;
 }
 
 .menu,
@@ -131,6 +125,7 @@ body.menu-expanded .close-menu {
     opacity: 1;
     visibility: visible;
 }
+
 .menu{
     transform: translateY(100%);
     /* joga o menu lá pra baixo */
@@ -144,9 +139,9 @@ body.menu-expanded .menu{
     width: 100vw;
     height: 100vh;
     padding-top: var(--nav-height);
-    transition: transform 300ms;
     transform: translateY(0%);
     /* manda o menu voltar de baixo pra cima */
+    transition: transform 300ms ease-out;
 }
 
 .social-links{
@@ -183,6 +178,16 @@ body.menu-expanded button path{
 .menu ul li a{
     color: white;
     text-decoration: none;
+    transition: background 500ms;
+}
+
+.menu ul li a:hover, 
+.menu .social-links a:hover path,
+footer ul li a:hover,
+footer .social-links a:hover path
+{
+    color:var(--secondary-color);
+    stroke: var(--secondary-color);
 }
 
 .menu .button{
@@ -198,6 +203,26 @@ body.menu-expanded button path{
     margin-top: 4.8rem;
     margin-bottom: 8rem;
     text-decoration: none;
+    transition: background 500ms;
+}
+
+.menu .button:hover{
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* ======== COLOR SLIDER ======== */
+
+#cor{
+    appearance: none;
+    border-radius: 1rem;
+    background: white;
+}
+
+#cores{
+    color: white;
+    padding-bottom: 2rem;
+    line-height: 2.5rem;
 }
 
 /* ======== HOME ======== */
@@ -225,7 +250,7 @@ body.menu-expanded button path{
     margin-bottom: 3.2rem;
 }
 
-#home button{
+#home a, #contact a{
     background-color: var(--primary-color);
     margin-bottom: 6rem;
     height: 6.2rem;
@@ -234,6 +259,7 @@ body.menu-expanded button path{
     border-radius: 4rem;
     color: white;
     text-transform: uppercase;
+    text-decoration: none;
     font-size: 1.4rem;
     font-weight: 700;
     display: flex;
@@ -241,6 +267,11 @@ body.menu-expanded button path{
     justify-content: center;
     gap: 1.6rem;
     margin-inline: auto;
+    transition: background 300ms;
+}
+
+#home a:hover, #contact a:hover{
+    background-color: var(--secondary-color);
 }
 
 #home img{
@@ -279,8 +310,6 @@ body.menu-expanded button path{
 }
 
 /* ======== SERVICES ======== */
-
-
 #services header h2{
     font-weight: 700 bold;
     text-align: center;
@@ -305,6 +334,15 @@ body.menu-expanded button path{
     margin-block: 1.6rem;
 }
 
+#services .card circle{
+    fill: var(--brand-green);
+}
+
+#services .card path{
+    stroke: white;
+}
+
+
 /* ======== ABOUT ======== */
 #about{
     background: var(--brand-beige);
@@ -317,10 +355,146 @@ body.menu-expanded button path{
 
 #about header h2{
     font-weight: 700;
-    margin-bottom: 2.4rem;
+    margin-bottom: 3.2rem;
     text-align: left;
 }
 
 #about img{
-    padding-top: 6rem;
+    width: 32.7rem;
+    height: 28.2rem;
+    margin-top: 6rem;
+    border: 1px solid var(--brand-green);
+    border-radius: 0.6rem;
+}
+
+/* ======== CONTACT ======== */
+#contact{
+    text-align: left;
+}
+
+#contact header h2{
+    font-weight: 700;
+    margin-bottom: 3.2rem;
+    line-height: 3.9rem;
+    text-align: left;
+}
+
+#contact a{
+    margin-inline: 0;
+}
+
+#contact ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+#contact ul li{
+    display: flex;
+    align-content: center;
+    gap: 0.81rem;
+    color: var(--paragraph);
+}
+
+#contact .content{
+    padding-top: 1.6rem;
+    gap: 6rem;
+}
+
+#contact img{
+    width: 32.4rem;
+    height: 21.3rem;
+    border: 1px solid var(--brand-green);
+    border-radius: 0.6rem;
+}
+
+/* ======== FOOTER ======== */
+footer{
+    background: var(--primary-color);
+    padding-block: 6rem;
+    text-align: left;
+    color: white;
+    font-size: 1.6rem;
+}
+
+footer .logo{
+    width: 23.6rem;
+    height: 3.1rem;
+    margin-bottom: 2.4rem;
+}
+
+footer .logo path{
+    fill: white;
+}
+
+footer .social-links{
+    display: flex;
+    gap: 3.2rem;
+    justify-content: flex-start;
+}
+
+footer .social-links path{
+    stroke: var(--brand-beige);
+}
+
+footer p{
+    margin-bottom: 1.2rem;
+    color: var(--brand-beige);
+}
+
+footer ul{
+    margin-top: 3.2rem;
+}
+
+/* ======== BACK TO TOP ======== */
+#backToTopButton{
+    position: fixed;
+    bottom: 1rem;
+    right: 2.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: 500ms;
+}
+
+#backToTopButton.show{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0%);
+}
+
+/* ======== COLOR SWAPPING ======== */
+#backToTopButton.show svg circle, 
+#navigation .logo path[fill*="#00856F"]{
+    fill: var(--primary-color);
+}
+
+#navigation.scroll .logo path, body.menu-expanded #navigation .logo path{
+    fill:white;
+}
+
+#navigation button.open-menu path[stroke*="#00856F"]{
+    stroke: var(--primary-color);
+}
+
+#contact ul li path{
+    stroke: var(--brand-green);
+}
+
+#navigation.scroll button.open-menu path[stroke*="#00856F"]{
+    stroke: white;
+}
+
+#backToTopButton.show-contrast{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0%);
+}
+
+#backToTopButton.show-contrast svg circle{
+    fill: white;
+}
+
+#backToTopButton.show-contrast svg path{
+    stroke: var(--primary-color);
 }
